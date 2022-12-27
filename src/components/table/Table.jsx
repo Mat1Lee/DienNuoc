@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
-import ApexCharts from 'apexcharts';
+
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Table from '@mui/material/Table';
@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { GIA_DIEN,GIA_NUOC } from '../../context/redux/types/QuanLyDienNuocTye';
+import { GIA_DIEN_1,GIA_NUOC1 } from '../../context/redux/types/AdminTypes';
 
 function Row(props) {
   
@@ -23,7 +23,7 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <React.Fragment>
+    <>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
           <IconButton
@@ -67,7 +67,7 @@ function Row(props) {
                       <TableCell>{historyRow.Dien}</TableCell>
                       <TableCell align="right">{historyRow.Nuoc}</TableCell>
                       <TableCell align="right">
-                        {Math.round(historyRow.Dien*GIA_DIEN + historyRow.Nuoc*GIA_NUOC) + ' Nghìn(VND)'  }
+                        {Math.round(historyRow.Dien*GIA_DIEN_1 + historyRow.Nuoc*GIA_NUOC1) + ' Nghìn(VND)'  }
                       </TableCell>
                     </TableRow>
                   ))}
@@ -77,7 +77,7 @@ function Row(props) {
           </Collapse>
         </TableCell>
       </TableRow>
-    </React.Fragment>
+    </>
   );
 }
 

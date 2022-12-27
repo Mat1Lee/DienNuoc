@@ -2,55 +2,111 @@ import "./single.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Chart from "../../components/chart/Chart";
+import ChartItem from "../../components/chart/ChartItem";
 import List from "../../components/table/Table";
+import { QuanLyDienNuocThangAction } from "../../context/redux/action/QuanLyDnAction";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { GIA_DIEN_1, GIA_DIEN_2, GIA_DIEN_3, GIA_DIEN_4, GIA_DIEN_5 } from "../../context/redux/types/AdminTypes";
+import { GIA_NUOC1, GIA_NUOC2, GIA_NUOC3, GIA_NUOC4 } from "../../context/redux/types/AdminTypes";
+const Single = (props) => {
+  const data = []
+  const { tableDataMonth } = useSelector(state => state.QuanLyDienNuocReducer)
+  console.log(tableDataMonth);
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(QuanLyDienNuocThangAction())
+  }, [])
 
-const Single = () => {
+  const giaSoDien = (data) => {
+    let thanhTien = 0;
+    if (0 < data && data <= 50) { return thanhTien = data * GIA_DIEN_1 }
+    else if (50 < data && data <= 100) {
+      return thanhTien = ((data - 50) * GIA_DIEN_2 + (50) * GIA_DIEN_1)
+    } else if (100 < data && data <= 200) {
+      return thanhTien = 50 * GIA_DIEN_1 + 100 * GIA_DIEN_2 + (data - 100) * GIA_DIEN_3
+    }
+    else {
+      thanhTien = 0
+    }
+  }
+  const giaSoNuoc = (data) => {
+    let thanhTien = 0;
+    if (0 < data && data <= 10) { return thanhTien = data * GIA_NUOC1 }
+    else if (10 < data && data <= 20) {
+      return thanhTien = ((data - 50) * GIA_NUOC2 + (50) * GIA_NUOC1)
+    } else if (20 < data && data <= 30) {
+      return thanhTien = 50 * GIA_NUOC1 + 100 * GIA_NUOC2 + (data - 100) * GIA_NUOC3
+    }
+    else {
+      thanhTien = 0
+    }
+  }
+
+  const data1 = []
+
+  // tableDataMonth?.map((data,index)=>{
+  //   data1?.push({'name':data?.key , 'Total':((giaSoDien(data?.data.Dien))+(giaSoNuoc(data?.data.Nuoc))).toFixed(2)})
+  // })
+  tableDataMonth?.map((data, index) => {
+    data1?.push({ 'name': data?.key, 'Price': ((giaSoDien(data?.data.Dien)) + (giaSoNuoc(data?.data.Nuoc))).toFixed(2) })
+  })
+  console.log(data1);
+  const renderHoaDon = () => {
+    return data1.map((data, index) => {
+      return <>
+        <div className="left">
+          
+          <div className="item col-6">
+
+            <div className="details">
+              <h1 className="itemTitle">Hóa Đơn Tiền Điện Tháng {data.name[5]}</h1>
+              <p>{data.Price} Nghìn đồng</p>
+              <div className="detailItem">
+                <span className="itemKey">Date:</span>
+                <span className="itemValue">
+                  {data.name}
+                </span>
+              </div>
+              <div className="detailItem">
+                <span className="itemKey">Phone:</span>
+                <span className="itemValue">+1 2345 67 89</span>
+              </div>
+             
+              <div className="detailItem">
+                <span className="itemKey">Country:</span>
+                <span className="itemValue">Viet Nam</span>
+              </div>
+            </div>
+            <hr />
+          </div>
+
+        </div>
+
+
+
+      </>
+    })
+
+  }
   return (
     <div className="single">
       <Sidebar />
       <div className="singleContainer">
         <Navbar />
         <div className="top">
-          <div className="left">
-            <div className="editButton">Edit</div>
-            <h1 className="title">Information</h1>
-            <div className="item">
-              <img
-                src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                alt=""
-                className="itemImg"
-              />
-              <div className="details">
-                <h1 className="itemTitle">Jane Doe</h1>
-                <div className="detailItem">
-                  <span className="itemKey">Email:</span>
-                  <span className="itemValue">janedoe@gmail.com</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Phone:</span>
-                  <span className="itemValue">+1 2345 67 89</span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Address:</span>
-                  <span className="itemValue">
-                    Elton St. 234 Garden Yd. NewYork
-                  </span>
-                </div>
-                <div className="detailItem">
-                  <span className="itemKey">Country:</span>
-                  <span className="itemValue">USA</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="right">
-            <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
-          </div>
+         
+              {renderHoaDon()}
+       
+          
+          {/* <div className="right">
+            <ChartItem props={data} aspect={3 / 1} title="User Spending" />
+          </div> */}
         </div>
-        <div className="bottom">
+        {/* <div className="bottom">
         <h1 className="title">Last Transactions</h1>
           <List/>
-        </div>
+        </div> */}
       </div>
     </div>
   );

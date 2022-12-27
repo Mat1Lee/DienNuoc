@@ -1,4 +1,3 @@
-$fill-color:red; 
 .featured {
   flex: 2;
   -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
@@ -12,7 +11,7 @@ $fill-color:red;
     color: gray;
 
     .title {
-      font-size: 16px;
+      font-size: 24px;
       font-weight: 500;
     }
   }
@@ -27,35 +26,11 @@ $fill-color:red;
 
     .featuredChart {
       width: 100px;
-      
       height: 100px;
-
-      .cycleValue{
-        color:red;
-      
-      
-      .CircularProgressbar{
-        .CircularProgressbar-text{
-          @if $fill-color == red {
-            fill:red;
-          }@else if $fill-color == green {
-            fill:aqua
-          }
-         
-        }
-        .CircularProgressbar-path{
-          @if $fill-color == red {
-            stroke:red;
-          }@else if $fill-color == green {
-            stroke:aqua
-          }
-        }
-      } 
-      
-      }
     }
 
     .title {
+      font-size: 20px;
       font-weight: 500;
       color: gray;
     }

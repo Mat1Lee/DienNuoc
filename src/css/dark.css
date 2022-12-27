@@ -5,10 +5,10 @@
 .app.dark .chartGrid {
   stroke: rgba(228, 228, 228, 0.219);
 }
-.app.dark .table {
+.app.dark .TableContainer {
   background-color: #111;
 }
-.app.dark .table .tableCell {
+.app.dark .TableContainer .tableCell {
   color: gray;
 }
 .app.dark .navbar {

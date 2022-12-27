@@ -1,141 +1,67 @@
 import "./widget.scss";
+import { useDispatch,useSelector } from "react-redux";
+import { useEffect } from "react";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
-import { GIA_DIEN,GIA_NUOC } from "../../context/redux/types/QuanLyDienNuocTye";
+import { QuanLyDienNuocAction,QuanLyDienNuocThangAction,ActionsValue,HanMucAction } from "../../context/redux/action/QuanLyDnAction";
+import { GIA_DIEN_1,GIA_NUOC1 } from "../../context/redux/types/AdminTypes";
+const Widget = ({ props }) => {
 
-const Widget = ({ type,props }) => {
-   console.log(props.data);
-  // let data = props?.pop();
-  // console.log(data);
-  
-   let amount =27
-   let amount1 =10
-
-  
-  //  let data2 = ['345','565','3453','7','24','68','89']
-   let data2 = [345,67,323,353,4456,3444];
-  //in ra mảng gồm các phần tử đầu tiên là só chẵn
-
-  // tách số thành chuổi
-  // tạo hàm tìm kí tự trùng nhau
-
-  const chechkNum=(string)=>{
-    let count = 1;
-      for(let i= 0;i<=string.length;i++){
-      
-      }
-  }
-
- const result = data2.filter(item=> `${item}`.charAt(0)%2 === 0)
-//  filter trả về một mảng gồm các phần tử thỏa mãn điều kiện 
- console.log(result);
-  //temporary
+ console.log(props)
+  const lg = props.length
+  console.log(lg);
  
-  const diff = 20;
+    // let {tableDataDefault} = useSelector(state=>state.QuanLyDienNuocReducer);
+const iTem = props[lg-2]   
+// console.log(iem)
+    
+  
+const tinhGiaTien =()=>{
 
-  // const amount = 200;
 
-  // switch (type) {
-  //   case "user":
-  //     data = {
-  //       title: "USERS",
-  //       isMoney: false,
-  //       link: "See all users",
-  //       icon: (
-  //         <PersonOutlinedIcon
-  //           className="icon"
-  //           style={{
-  //             color: "crimson",
-  //             backgroundColor: "rgba(255, 0, 0, 0.2)",
-  //           }}
-  //         />
-  //       ),
-  //     };
-  //     break;
-  //   case "order":
-  //     data = {
-  //       title: "Tiền Điện",
-  //       isMoney: false,
-        
-  //       icon: (
-  //         <ShoppingCartOutlinedIcon
-  //           className="icon"
-  //           style={{
-  //             backgroundColor: "rgba(218, 165, 32, 0.2)",
-  //             color: "goldenrod",
-  //           }}
-  //         />
-  //       ),
-  //     };
-  //     break;
-  //   case "earning":
-  //     data = {
-  //       title: "Tiền Nước",
-  //       isMoney: true,
-        
-  //       // icon: (
-  //       //   <MonetizationOnOutlinedIcon
-  //       //     className="icon"
-  //       //     style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
-  //       //   />
-  //       // ),
-  //     };
-  //     break;
-  //   case "balance":
-  //     data = {
-  //       title: "BALANCE",
-  //       isMoney: true,
-  //       link: "See details",
-  //       // icon: (
-  //       //   <AccountBalanceWalletOutlinedIcon 
-  //       //     className="icon"
-  //       //     style={{
-  //       //       backgroundColor: "rgba(128, 0, 128, 0.2)",
-  //       //       color: "purple",
-  //       //     }}
-  //       //   />
-  //       // ),
-  //     };
-  //     break;
-  //   default:
-  //     break;
-  // }
+ const lastItem = [...props].pop() // toan tu Spread
+  console.log(lastItem);
+const amount = lastItem?.data.Dien*3;
+  const amount1 =lastItem?.data.Nuoc*3;
+  const diff1 = Math.round((lastItem?.data.Dien)/(iTem?.data.Dien))*100
 
+  return {amount,amount1,diff1}
+}
+  
+// const diff1 = ;
   return (
     <>
-
-
-    <div className="widget">
+     <div className="widget col-md-6">
       <div className="left">
-        <span className="title">Tiền Nước</span>
+        <span className="title">Tiền Điện(Nghìn VND)</span>
         <span className="counter">
-          {amount*GIA_DIEN} VND
+          {/* {lastItem?.data.Dien*GIA_DIEN} VND */}
+          {tinhGiaTien().amount} VND
+
         </span>
         {/* <span className="link">{data.link}</span> */}
       </div>
       <div className="right">
         <div className="percentage positive">
           <KeyboardArrowUpIcon />
-          {diff} %
+          {tinhGiaTien().diff1} %
         </div>
         {/* {data.icon} */}
       </div>
     </div>
-    <div className="widget">
+    <div className="widget col-md-6">
       <div className="right">
-        <span className="title">Tiền Nước</span>
+        <span className="title">Tiền Nước(Nghìn VND)</span>
         <span className="counter">
-          {amount1*GIA_NUOC} VND
+          {/* {lastItem?.data.Nuoc*GIA_NUOC} VND */}
+          {tinhGiaTien().amount1} VND
+
         </span>
         {/* <span className="link">{data.link}</span> */}
       </div>
       <div className="right">
         <div className="percentage positive">
           <KeyboardArrowUpIcon />
-          {diff} %
+          {tinhGiaTien().diff1} %
         </div>
         {/* {data.icon} */}
       </div>

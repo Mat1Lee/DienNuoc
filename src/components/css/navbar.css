@@ -8,23 +8,10 @@
 }
 .navbar .wrapper {
   width: 100%;
+  padding: 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-.navbar .wrapper .search {
-  display: flex;
-  align-items: center;
-  border: 0.5px solid lightgray;
-  padding: 3px;
-}
-.navbar .wrapper .search input {
-  border: none;
-  outline: none;
-  background: transparent;
-}
-.navbar .wrapper .search input::placeholder {
-  font-size: 12px;
+  justify-content: right;
 }
 .navbar .wrapper .items {
   display: flex;
